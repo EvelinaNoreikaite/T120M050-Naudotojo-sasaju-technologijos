@@ -8,6 +8,8 @@ Atidaryti terminalą ir parašyti:
 • node -v 
 • npm -v
 
+npm install -g @angular/cli
+
 Įdiegti projekto priklausomybes (node_modules) Eiti į projekto aplanką, kuriame yra package.json, ir paleisti: 
 • npm install
 
