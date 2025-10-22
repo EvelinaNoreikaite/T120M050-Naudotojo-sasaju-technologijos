@@ -4,7 +4,7 @@ Projekto paleidimo instrukcija:
 Įsidiegti Node.js Atsisiųsti iš https://nodejs.org
 
 Patikrinti ar veikia Node.js ir npm 
-
+npm install -g @angular/cli
 Atidaryti terminalą ir parašyti: 
 • node -v 
 • npm -v
