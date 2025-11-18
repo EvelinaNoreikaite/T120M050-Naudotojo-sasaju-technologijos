@@ -4,15 +4,15 @@ Projekto paleidimo instrukcija:
 Įsidiegti Node.js Atsisiųsti iš https://nodejs.org
 
 Patikrinti ar veikia Node.js ir npm 
-npm install -g @angular/cli
+1) npm install -g @angular/cli
 Atidaryti terminalą ir parašyti: 
 • node -v 
 • npm -v
 
 Įdiegti projekto priklausomybes (node_modules) Eiti į projekto aplanką, kuriame yra package.json, ir paleisti: 
-• npm install
+2) npm install
 
 Paleisti projektą Kai diegimas baigtas, paleisti komandą: 
-• ng serve
+3) ng serve
 
 Atidaryti naršyklėje Kai terminale parašo: Local: http://localhost:4200/
