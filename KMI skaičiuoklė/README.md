@@ -13,6 +13,6 @@ Atidaryti terminalą ir parašyti:
 2) npm install
 
 Paleisti projektą Kai diegimas baigtas, paleisti komandą: 
-3) ng serve
+3) ng serve arba šita: ng serve --host 0.0.0.0 --port 4300 --open
 
 Atidaryti naršyklėje Kai terminale parašo: Local: http://localhost:4200/
