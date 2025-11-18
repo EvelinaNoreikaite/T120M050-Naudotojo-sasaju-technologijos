@@ -1,0 +1,60 @@
+<div class="contacts-container">
+    <div class="page-header">
+        <h1>👥 Kontaktų sąrašas</h1>
+        <div class="breadcrumb">
+            <a routerLink="/dashboard">🏠 Pagrindinis</a> / 
+            <span>Kontaktai</span>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <div>
+            <span class="count-label">Rasta kontaktų: <strong>{{ contacts.length }}</strong></span>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            📇 Visi kontaktai
+        </div>
+
+        <div *ngIf="contacts.length === 0" class="empty-state">
+            <div class="empty-state-icon">📇</div>
+            <h3>Nėra kontaktų</h3>
+            <p>Kontaktai bus sukurti kartu su įmonėmis</p>
+            <button class="btn btn-primary" routerLink="/companies/create" style="margin-top: 20px;">
+                ➕ Sukurti įmonę su kontaktu
+            </button>
+        </div>
+
+        <table *ngIf="contacts.length > 0">
+            <thead>
+                <tr>
+                    <th>Vardas</th>
+                    <th>Pavardė</th>
+                    <th>Pareigos</th>
+                    <th>Telefonas</th>
+                    <th>Įmonė</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contact of contacts">
+                    <td>{{ contact.vardas || '-' }}</td>
+                    <td>{{ contact.pavarde || '-' }}</td>
+                    <td>{{ contact.pareigos || '-' }}</td>
+                    <td>{{ contact.telefonas || '-' }}</td>
+                    <td><strong>{{ contact.companyName }}</strong></td>
+                    <td class="actions">
+                        <button class="btn btn-info" (click)="viewContact(contact)" title="Peržiūrėti">
+                            👁️
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteContact(contact.id)" title="Ištrinti">
+                            🗑️
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

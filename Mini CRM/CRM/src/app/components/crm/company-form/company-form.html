@@ -1,0 +1,210 @@
+<div class="form-page-container">
+    <div class="page-header">
+        <h1>➕ {{ isEditMode ? 'Redaguoti įmonę' : 'Sukurti naują įmonę' }}</h1>
+        <div class="breadcrumb">
+            <a routerLink="/dashboard">🏠 Pagrindinis</a> / 
+            <a routerLink="/companies">Įmonės</a> / 
+            <span>{{ isEditMode ? 'Redaguoti' : 'Sukurti naują' }}</span>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="alert alert-success" [class.show]="showSuccessAlert">
+        <span class="icon">✓</span>
+        <span>Įmonė ir kontaktas sėkmingai {{ isEditMode ? 'atnaujinti' : 'užregistruoti' }}!</span>
+    </div>
+
+    <!-- Error Alert -->
+    <div class="alert alert-danger" [class.show]="showErrorAlert">
+        <span class="icon">⚠️</span>
+        <span>Prašome ištaisyti klaidas formoje.</span>
+    </div>
+
+    <!-- Form -->
+    <div class="form-container">
+        <div class="form-header">
+            <span class="icon">✏️</span>
+            Įmonės ir kontakto registracijos forma
+        </div>
+
+        <form [formGroup]="companyForm" (ngSubmit)="submitForm()">
+            <div class="form-body">
+                <!-- Company Information -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <span class="icon">🏢</span>
+                        Įmonės informacija
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>
+                                Įmonės pavadinimas
+                                <span class="required-mark">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="companyName"
+                                [class.error]="isFieldInvalid('companyName')"
+                                [class.success]="companyForm.get('companyName')?.valid && companyForm.get('companyName')?.touched"
+                                placeholder="Įveskite įmonės pavadinimą">
+                            <div class="error-text" *ngIf="isFieldInvalid('companyName')">
+                                {{ getErrorMessage('companyName') }}
+                            </div>
+                            <div class="help-text">2-30 simbolių</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Įmonės kodas</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="companyCode"
+                                [class.error]="isFieldInvalid('companyCode')"
+                                [class.success]="companyForm.get('companyCode')?.valid && companyForm.get('companyCode')?.touched"
+                                placeholder="Pvz.: 123456789">
+                            <div class="error-text" *ngIf="isFieldInvalid('companyCode')">
+                                {{ getErrorMessage('companyCode') }}
+                            </div>
+                            <div class="help-text">Tik skaičiai</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>PVM mokėtojo kodas</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="vatCode"
+                                [class.error]="isFieldInvalid('vatCode')"
+                                [class.success]="companyForm.get('vatCode')?.valid && companyForm.get('vatCode')?.touched"
+                                placeholder="Pvz.: LT123456789">
+                            <div class="error-text" *ngIf="isFieldInvalid('vatCode')">
+                                {{ getErrorMessage('vatCode') }}
+                            </div>
+                            <div class="help-text">Formatas: LT arba skaičiai</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Adresas</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="address"
+                                placeholder="Įveskite įmonės adresą">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>
+                                El. pašto adresas
+                                <span class="required-mark">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-addon">✉️</span>
+                                <input 
+                                    type="email" 
+                                    class="form-control" 
+                                    formControlName="email"
+                                    [class.error]="isFieldInvalid('email')"
+                                    [class.success]="companyForm.get('email')?.valid && companyForm.get('email')?.touched"
+                                    placeholder="info@imone.lt">
+                            </div>
+                            <div class="error-text" *ngIf="isFieldInvalid('email')">
+                                {{ getErrorMessage('email') }}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Telefono numeris</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">☎️</span>
+                                <input 
+                                    type="tel" 
+                                    class="form-control" 
+                                    formControlName="phone"
+                                    [class.error]="isFieldInvalid('phone')"
+                                    [class.success]="companyForm.get('phone')?.valid && companyForm.get('phone')?.touched"
+                                    placeholder="+37065312345">
+                            </div>
+                            <div class="error-text" *ngIf="isFieldInvalid('phone')">
+                                {{ getErrorMessage('phone') }}
+                            </div>
+                            <div class="help-text">10-12 simbolių</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Person -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <span class="icon">👤</span>
+                        Kontaktinis asmuo
+                    </h2>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Vardas</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="firstName"
+                                placeholder="Įveskite vardą">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Pavardė</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="lastName"
+                                placeholder="Įveskite pavardę">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Pareigos</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                formControlName="position"
+                                placeholder="Pvz.: Direktorius">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Telefono numeris</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">📱</span>
+                                <input 
+                                    type="tel" 
+                                    class="form-control" 
+                                    formControlName="contactPhone"
+                                    [class.error]="isFieldInvalid('contactPhone')"
+                                    [class.success]="companyForm.get('contactPhone')?.valid && companyForm.get('contactPhone')?.touched"
+                                    placeholder="+37065312345">
+                            </div>
+                            <div class="error-text" *ngIf="isFieldInvalid('contactPhone')">
+                                {{ getErrorMessage('contactPhone') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button type="button" class="btn btn-default" (click)="resetForm()">
+                    <span class="icon">✖️</span>
+                    Atšaukti
+                </button>
+                <button type="submit" class="btn btn-success">
+                    <span class="icon">💾</span>
+                    {{ isEditMode ? 'Atnaujinti įmonę' : 'Registruoti įmonę' }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

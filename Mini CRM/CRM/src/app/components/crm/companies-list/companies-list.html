@@ -1,0 +1,68 @@
+<div class="companies-container">
+    <div class="page-header">
+        <h1>🏢 Įmonių sąrašas</h1>
+        <div class="breadcrumb">
+            <a routerLink="/dashboard">🏠 Pagrindinis</a> / 
+            <span>Įmonės</span>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <div>
+            <span class="count-label">Rasta įmonių: <strong>{{ companies.length }}</strong></span>
+        </div>
+        <button class="btn btn-primary" routerLink="/companies/create">
+            ➕ Sukurti naują įmonę
+        </button>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            📋 Visos įmonės
+        </div>
+
+        <div *ngIf="companies.length === 0" class="empty-state">
+            <div class="empty-state-icon">🔭</div>
+            <h3>Nėra įmonių</h3>
+            <p>Pradėkite kuriant naują įmonę</p>
+            <button class="btn btn-primary" routerLink="/companies/create" style="margin-top: 20px;">
+                ➕ Sukurti įmonę
+            </button>
+        </div>
+
+        <table *ngIf="companies.length > 0">
+            <thead>
+                <tr>
+                    <th>Pavadinimas</th>
+                    <th>Kodas</th>
+                    <th>PVM kodas</th>
+                    <th>El. paštas</th>
+                    <th>Telefonas</th>
+                    <th>Adresas</th>
+                    <th>Veiksmai</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let company of companies">
+                    <td><strong>{{ company.pavadinimas }}</strong></td>
+                    <td>{{ company.kodas || '-' }}</td>
+                    <td>{{ company.pvmKodas || '-' }}</td>
+                    <td>{{ company.elPastas }}</td>
+                    <td>{{ company.telefonas || '-' }}</td>
+                    <td>{{ company.adresas || '-' }}</td>
+                    <td class="actions">
+                        <button class="btn btn-info" (click)="viewCompany(company)" title="Peržiūrėti">
+                            👁️
+                        </button>
+                        <button class="btn btn-warning" [routerLink]="['/companies/edit', company.id]" title="Redaguoti">
+                            ✏️
+                        </button>
+                        <button class="btn btn-danger" (click)="deleteCompany(company.id)" title="Ištrinti">
+                            🗑️
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
